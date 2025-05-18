@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f6f3;
+      --text: #2e3c2d;
+      --accent: #748c74;
+      --soft-accent: #dde3dd;
+    }
+    .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .checkbox-group label {
+        font-size: 0.95em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .language-switch select {
+        font-size: 1em;
+        padding: 6px 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .language-switch label {
+        font-size: 1em;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--soft-accent);
+      padding: 20px 40px;
+    }
+    header img {
+      height: 60px;
+    }
+    footer {
+      background-color: var(--soft-accent);
+      padding: 20px;
+      text-align: center;
+      color: #3f4f3f;
+      font-size: 0.9em;
+    }
+    nav a {
+      color: var(--text);
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: var(--accent);
+    }
+    .container {
+        max-width: 700px;
+        margin: 60px auto;
+        padding: 40px;
+        border-radius: 12px;
+        background-color: rgba(255, 255, 255, 0.9); /* optional fallback */
+    }
+
+    h1, h2 {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      color: var(--accent);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+    .note {
+      font-size: 0.9em;
+      margin-top: 10px;
+      color: #444;
+    }
+    .thank-you {
+      display: none;
+      text-align: center;
+      color: green;
+      margin-top: 20px;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      font-size: 1em;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #5f7d5f;
+    }
+    .translatable::after {
+      content: "";
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Scroll animation
+      const reveals = document.querySelectorAll(".reveal");
+      function revealOnScroll() {
+        const windowHeight = window.innerHeight;
+        reveals.forEach(el => {
+          const top = el.getBoundingClientRect().top;
+          if (top < windowHeight - 100) {
+            el.classList.add("active");
+          }
+        });
+      }
+      window.addEventListener("scroll", revealOnScroll);
+      revealOnScroll();
+
+      // Language switcher
+      const langToggle = document.getElementById('language-toggle');
+      const translatables = document.querySelectorAll('.translatable');
+
+      const savedLang = localStorage.getItem('lang') || 'en';
+      langToggle.value = savedLang;
+      updateLanguage(savedLang);
+
+      langToggle.addEventListener('change', () => {
+        const selectedLang = langToggle.value;
+        localStorage.setItem('lang', selectedLang);
+        updateLanguage(selectedLang);
+      });
+
+      function updateLanguage(lang) {
+        translatables.forEach(el => {
+          const newText = el.getAttribute(`data-lang-${lang}`);
+          if (newText) el.textContent = newText;
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Tulin Duzgezen Logo">
+        <nav>
+          <a href="index.html" class="translatable" data-lang-en="Home" data-lang-tr="Ana Sayfa">Home</a>
+          <a href="about.html" class="translatable" data-lang-en="About" data-lang-tr="Hakkında">About</a>
+          <a href="services.html" class="translatable" data-lang-en="Services" data-lang-tr="Danışmanlık Paketleri">Services</a>
+          <a href="contact.html" class="translatable" data-lang-en="Contact" data-lang-tr="İletişim">Contact</a>
+        </nav>
+        <div class="language-switch">
+          <label for="language-toggle">🌐</label>
+          <select id="language-toggle">
+            <option value="en">English</option>
+            <option value="tr">Türkçe</option>
+          </select>
+        </div>
+      </header>
+      
+
+  <div class="container">
+    <h1 class="translatable" data-lang-en="Contact" data-lang-tr="İletişim">Contact</h1>
+    <p class="note translatable" data-lang-en="All sessions are 1 hour long. Packages marked with 📝 can also be delivered as a report instead of a meeting for $75 upon request." 
+       data-lang-tr="Tüm seanslar 1 saat sürmektedir. 📝 ile işaretli paketler, arzu edildiği takdirde, görüşme yerine $75 karşılığında yazılı rapor olarak sunulabilir.">
+      All sessions are 1 hour long. Packages marked with 📝 can also be delivered as a report instead of a meeting for $75 upon request.
+    </p>
+
+    <form action="https://formsubmit.co/tduzgezen@gmail.com" method="POST">
+      <label class="translatable" data-lang-en="Name and Lastname" data-lang-tr="Ad Soyad">Name and Lastname</label>
+      <input type="text" name="Name" required>
+
+      <label class="translatable" data-lang-en="Email Address" data-lang-tr="E-posta Adresi">Email Address</label>
+      <input type="email" name="Email" required>
+
+      <label class="translatable" data-lang-en="Date of Birth" data-lang-tr="Doğum Tarihi">Date of Birth</label>
+      <input type="date" name="Date of Birth">
+
+      <label class="translatable" data-lang-en="Birth Location (City, Country)" data-lang-tr="Doğum Yeri (Şehir, Ülke)">Birth Location (City, Country)</label>
+      <input type="text" name="Birth Location">
+
+      <label class="translatable" data-lang-en="Birth Hour (as in the timezone of the birthplace)" data-lang-tr="Doğum Saati (doğum yerinizin zaman diliminde)">Birth Hour (as in the timezone of the birthplace)</label>
+      <input type="text" name="Birth Hour">
+
+      <label class="translatable" data-lang-en="Sex" data-lang-tr="Cinsiyet">Sex</label>
+      <input type="text" name="Sex">
+
+      <label class="translatable" data-lang-en="Phone Number (incl. area code if WhatsApp preferred)" 
+             data-lang-tr="Telefon Numarası (Whatsapp için alan kodu ile birlikte)">Phone Number (incl. area code if WhatsApp preferred)</label>
+      <input type="tel" name="Phone Number">
+
+      <div class="form-group">
+        <label class="translatable" data-lang-en="Select Your Package(s)" data-lang-tr="Danışmanlık Paketinizi Seçin (Birden Fazla Paket Seçebilirsiniz)">Select Your Package(s)</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="package[]" value="Birth Time Rectification"> <span class="translatable" data-lang-en="1 - Birth Time Rectification (Uranian Astrology)" data-lang-tr="1 - Doğum Tarihi Rektifikasyonu (Uranyen Astroloji)">1 - Birth Time Rectification (Uranian Astrology)</span></label>
+      
+          <label><input type="checkbox" name="package[]" value="Natal Chart Analysis"> <span class="translatable" data-lang-en="2 - Natal Chart Analysis (Uranian Astrology) 📝" data-lang-tr="2 - Doğum Haritası Analizi (Uranyen Astroloji) 📝">2 - Natal Chart Analysis (Uranian Astrology) 📝</span></label>
+      
+          <label><input type="checkbox" name="package[]" value="Relationship Compatibility"> <span class="translatable" data-lang-en="3 - Relationship Compatibility (Uranian Astrology) 📝" data-lang-tr="3 - İlişki Uyumluluğu (Uranyen Astroloji) 📝">3 - Relationship Compatibility (Uranian Astrology) 📝</span></label>
+      
+          <label><input type="checkbox" name="package[]" value="Solar and Lunar Return Forecasting"> <span class="translatable" data-lang-en="4 - Solar & Lunar Return Forecasting (Uranian Astrology) 📝" data-lang-tr="4 - Güneş & Ay Dönüşü Danışmanlığı (Uranyen Astroloji) 📝">4 - Solar & Lunar Return Forecasting (Uranian Astrology) 📝</span></label>
+      
+          <label><input type="checkbox" name="package[]" value="Career and Financial Astrology"> <span class="translatable" data-lang-en="5 - Career & Financial Astrology (Uranian Astrology) 📝" data-lang-tr="5 - Kariyer & Finansal Astroloji (Uranyen Astroloji) 📝">5 - Career & Financial Astrology (Uranian Astrology) 📝</span></label>
+      
+          <label><input type="checkbox" name="package[]" value="Horary Astrology"> <span class="translatable" data-lang-en="6 - Horary Astrology (Uranian Astrology) 📝" data-lang-tr="6 - Soru Astrolojisi (Uranyen Astroloji) 📝">6 - Horary Astrology (Uranian Astrology) 📝</span></label>
+      
+          <label><input type="checkbox" name="package[]" value="Basic Human Design"> <span class="translatable" data-lang-en="7 - Basic Channel & Gate Reading (Human Design)" data-lang-tr="7 - Temel Kanal & Kapı Yorumu (Human Design)">7 - Basic Channel & Gate Reading (Human Design)</span></label>
+      
+          <label><input type="checkbox" name="package[]" value="Advanced Human Design"> <span class="translatable" data-lang-en="8 - In-Depth Channel & Gate Analysis (Human Design)" data-lang-tr="8 - Derinlemesine Kanal & Kapı Analizi (Human Design)">8 - In-Depth Channel & Gate Analysis (Human Design)</span></label>
+        </div>
+      </div>
+      
+
+      <label class="translatable" data-lang-en="Notes or Questions (Please specify here if you would prefer a written report.)" data-lang-tr="Notlar veya Sorular (Yazılı rapor teslimi için burada belirtiniz)">Notes or Questions (Please specify here if you would prefer a written report.)</label>
+      <textarea name="Notes" rows="4"></textarea>
+
+      <p class="note translatable" data-lang-en="All personal information is handled with care and privacy law compliance." 
+         data-lang-tr="Tüm kişisel veriler gizlilik yasalarına uygun şekilde işlenmektedir.">
+        All personal information is handled with care and privacy law compliance.
+      </p>
+
+      <button type="submit" class="translatable" data-lang-en="Submit" data-lang-tr="Gönder">Submit</button>
+    </form>
+
+    <p class="thank-you translatable" data-lang-en="Thank you for contacting us. Please allow 1–3 business days for a response." 
+       data-lang-tr="Bizimle iletişime geçtiğiniz için teşekkür ederiz. Yanıt süremiz 1–3 iş günü sürebilir.">
+      Thank you for contacting us. Please allow 1–3 business days for a response.
+    </p>
+  </div>
+
+  <footer>
+    &copy; 2025 Tulin Duzgezen. All rights reserved.
+  </footer>
+</body>
+</html>

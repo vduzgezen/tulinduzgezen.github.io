@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tulin Duzgezen Astrology</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f6f3;
+      --text: #2e3c2d;
+      --accent: #748c74;
+      --soft-accent: #dde3dd;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--soft-accent);
+      padding: 20px 40px;
+    }
+    header img {
+      height: 60px;
+    }
+    nav a {
+      color: var(--text);
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: var(--accent);
+    }
+    .hero {
+      background: url('images/garden.jpeg') center/cover no-repeat;
+      padding: 160px 20px;
+      text-align: center;
+      position: relative;
+      color: var(--text);
+    }
+    .hero-overlay {
+      background-color: rgba(243, 246, 243, 0.88);
+      display: inline-block;
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 700px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    .container {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: 40px;
+      animation: fadeInUp 1s ease-in-out forwards;
+    }
+    .column {
+      flex: 1;
+      min-width: 280px;
+    }
+    .column img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      object-fit: cover;
+      height: 100%;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    p {
+      margin-bottom: 20px;
+    }
+    .deep-dive {
+      margin-top: 60px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+      animation: fadeInUp 1s ease-in-out forwards;
+    }
+    .deep-dive .text {
+      flex: 1;
+      min-width: 300px;
+    }
+    .deep-dive .column {
+      flex: 1;
+      min-width: 280px;
+    }
+    .deep-dive img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      height: 100%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    footer {
+      background-color: var(--soft-accent);
+      padding: 20px;
+      text-align: center;
+      color: #3f4f3f;
+      font-size: 0.9em;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-in-out;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .language-switch select {
+        font-size: 1em;
+        padding: 6px 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .language-switch label {
+        font-size: 1em;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Scroll animation
+      const reveals = document.querySelectorAll(".reveal");
+      function revealOnScroll() {
+        const windowHeight = window.innerHeight;
+        reveals.forEach(el => {
+          const top = el.getBoundingClientRect().top;
+          if (top < windowHeight - 100) {
+            el.classList.add("active");
+          }
+        });
+      }
+      window.addEventListener("scroll", revealOnScroll);
+      revealOnScroll();
+
+      // Language switcher
+      const langToggle = document.getElementById('language-toggle');
+      const translatables = document.querySelectorAll('.translatable');
+
+      // Load saved preference
+      const savedLang = localStorage.getItem('lang') || 'en';
+      langToggle.value = savedLang;
+      updateLanguage(savedLang);
+
+      langToggle.addEventListener('change', () => {
+        const selectedLang = langToggle.value;
+        localStorage.setItem('lang', selectedLang);
+        updateLanguage(selectedLang);
+      });
+
+      function updateLanguage(lang) {
+        translatables.forEach(el => {
+          const newText = el.getAttribute(`data-lang-${lang}`);
+          if (newText) el.textContent = newText;
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <img src="images/logo.png" alt="Tulin Duzgezen Logo">
+    <nav>
+        <a href="index.html" class="translatable" data-lang-en="Home" data-lang-tr="Ana Sayfa">Home</a>
+        <a href="about.html" class="translatable" data-lang-en="About" data-lang-tr="Hakkında">About</a>
+        <a href="services.html" class="translatable" data-lang-en="Services" data-lang-tr="Danışmanlık Paketleri">Services</a>
+        <a href="contact.html" class="translatable" data-lang-en="Contact" data-lang-tr="İletişim">Contact</a>
+    </nav>
+      
+    <div class="language-switch">
+      <label for="language-toggle">🌐</label>
+      <select id="language-toggle">
+        <option value="en">English</option>
+        <option value="tr">Türkçe</option>
+      </select>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-overlay">
+      <h2 class="translatable" data-lang-en="Find your rhythm in the dance of planetary harmony." data-lang-tr="Gezegenlerin dansında kendi ritmini bul.">Find your rhythm in the dance of planetary harmony.</h2>
+      <p class="translatable" data-lang-en="Tülin offers elegant, empowering Uranian Astrology and Human Design insights to help you live in alignment with your unique rhythm." data-lang-tr="Tülin'in, kendi evrensel ritminizle uyum içinde yaşamanız için zarif ve güçlendirici Uranyen Astrolojisi ve Human Design analiz seanslarına göz atın.">Tülin offers elegant, empowering astrology and Human Design insights to help you live in alignment with your unique rhythm.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <h2 class="reveal translatable" data-lang-en="Astrology As a Guide, Not a Prediction" data-lang-tr="Astroloji: Bir Kehanet Değil, Rehberliktir">Astrology As a Guide, Not a Prediction</h2>
+    <p class="reveal translatable" data-lang-en="Astrology and Human Design aren’t about telling your future—they’re about helping you understand your attractor fields and playing life with your strong suits in hand. These systems offer profound insights into your inner workings, your timing, and your relationship with the world around you." 
+    data-lang-tr="Astroloji ve Human Design'ın amacı geleceği tahmin etmek değildir—sizi etkileyen çekim alanlarını anlamanızı ve hayatta güçlü enerjilerinizi kullanarak ilerlemenizi sağlamaktır. Bu analizler, içsel yapınıza, zamanlamanıza ve çevrenizle olan ilişkinize dair derinlemesine anlam sunar.">Astrology and Human Design aren’t about telling your future—they’re about helping you understand your attractor fields and playing life with your strong suits in hand.</p>
+
+    <div class="deep-dive reveal">
+      <div class="column">
+        <img src="images/sandplanet.jpeg" alt="Sand Planet">
+      </div>
+      <div class="column">
+        <h2 class="translatable" data-lang-en="Human Design" data-lang-tr="Human Design">Human Design</h2>
+        <p class="translatable" data-lang-en="Human Design is a synthesis of ancient and modern sciences that reveals your energetic makeup. It’s based on your birth data and provides a BodyGraph—an energetic blueprint that shows how you’re designed to operate, make decisions, and interact with others." 
+        data-lang-tr="Human Design, kadim ve modern bilimlerin bir sentezidir ve enerjik yapınızı ortaya çıkarmayı amaçlar. Doğum verilerinize bağlı bu analizler bir BodyGraph üzerinden size nasıl çalıştığınızı, nasıl karar aldığınızı ve başkalarıyla nasıl etkileşim kurduğunuzu açıklar.">Human Design is a synthesis of ancient and modern sciences that reveals your energetic makeup. It’s based on your birth data and provides a BodyGraph—an energetic blueprint that shows how you’re designed to operate, make decisions, and interact with others.</p>
+        <p class="translatable" data-lang-en="At its core, Human Design is about deconditioning. It helps you shed external expectations and return to your innate wisdom. By learning your type, strategy, and authority, you can align your actions with your energy, reducing resistance and increasing flow in your life." 
+        data-lang-tr="Human Design’ın özü, üzerimizde etki gösteren koşullanmaları fark edip onlardan özgürleşmektir. Bu koşullanmaları kavramak, dış dünyanın beklentilerini geride bırakmanıza ve kendi içsel rehberliğinize yeniden bağlanmanıza yardımcı olur. Kendi astrolojik tipinizi, idael stratejilerinizi ve karar alma mekanizmanızı öğrendikçe, hayatınızda daha az zorlanma ve daha fazla akış farketmeye başlayacaksınız.">At its core, Human Design is about deconditioning. It helps you shed external expectations and return to your innate wisdom. By learning your type, strategy, and authority, you can align your actions with your energy, reducing resistance and increasing flow in your life.</p>
+        <p class="translatable" data-lang-en="This system encourages you to live not through mental over-analysis, but through trust in your body and its intuitive intelligence." 
+        data-lang-tr="Bu farkındalık, hayatı aşırı mantıksal analizlerle değil, bedeninizin sezgisel zekasına güvenerek yaşamanıza teşvik eder.">This system encourages you to live not through mental over-analysis, but through trust in your body and its intuitive intelligence.</p>
+      </div>
+    </div>
+
+    <div class="deep-dive reveal" style="margin-top: 60px;">
+      <div class="column">
+        <h2 class="translatable" data-lang-en="Uranian Astrology" data-lang-tr="Uranyen Astroloji">Uranian Astrology</h2>
+        <p class="translatable" data-lang-en="Uranian Astrology is a modern, precise approach to understanding time, energy, and psychological influence. It uses tools like the 90° dial, midpoints, and Transneptunian objects to explore hidden layers in the birth chart. This method excels in identifying inner tensions, karmic lessons, and timing patterns." 
+        data-lang-tr="Uranyen Astroloji, zaman, enerji ve psikolojik etkileri anlamaya yönelik modern ve son derece hassas bir yaklaşımdır. Doğum haritasındaki gizli katmanları keşfetmek için 90° kadran, orta noktalar ve Transneptünyen gezegenler gibi özel teknikler kullanır. Bu yöntem; içsel gerilimleri, karmik dersleri ve zamanlama kalıplarını belirlemede oldukça etkilidir.">Uranian Astrology is a modern, precise approach to understanding time, energy, and psychological influence. It uses tools like the 90° dial, midpoints, and Transneptunian objects to explore hidden layers in the birth chart. This method excels in identifying inner tensions, karmic lessons, and timing patterns.</p>
+        <p class="translatable" data-lang-en="Unlike traditional astrology, Uranian Astrology allows for pinpoint accuracy in revealing subconscious programming, blocked potentials, and moments of opportunity. It is particularly useful in moments of transition—when clarity, guidance, and cosmic alignment are most needed." 
+        data-lang-tr="Klasik astrolojiden farklı olarak, Uranyen Astroloji; bilinçaltı kodlamaları, ulaşılamamış potansiyelleri ve fırsat anlarını yüksek hassasiyetle ortaya çıkarır. Özellikle geçiş dönemlerinde, netliğe, rehberliğe ve kozmik hizalanmaya en çok ihtiyaç duyulan zamanlarda son derece işlevseldir.">Unlike traditional astrology, Uranian Astrology allows for pinpoint accuracy in revealing subconscious programming, blocked potentials, and moments of opportunity. It is particularly useful in moments of transition—when clarity, guidance, and cosmic alignment are most needed.</p>
+        <p class="translatable" data-lang-en="It is a practical and deeply psychological method that resonates with those seeking not just prediction, but perspective." 
+        data-lang-tr="Bu yaklaşım, yalnızca kehanet değil; bakış açısı arayanlar için hem pratik hem de derin psikolojik bir açıklamadır.">It is a practical and deeply psychological method that resonates with those seeking not just prediction, but perspective.</p>
+      </div>
+      <div class="column">
+        <img src="images/garden.jpeg" alt="Zen Garden">
+      </div>
+    </div>
+
+    <div class="deep-dive reveal">
+      <div class="column">
+        <img src="images/rocks.jpeg" alt="Balancing Stones">
+      </div>
+      <div class="text">
+        <h2 class="translatable" data-lang-en="More Than Insight—Integration" data-lang-tr="Yalnızca Geleceği Görmek Değil—Bütünleşmek">More Than Insight—Integration</h2>
+        <p class="translatable" data-lang-en="Astrology and Human Design are powerful on their own, but their true potential lies in integration. When used together, they offer a full-spectrum view of your personal code—your wiring, your patterns, your divine timing. Together, they bridge the spiritual and the practical, guiding you to make decisions rooted in self-awareness rather than social programming." 
+        data-lang-tr="Astroloji ve Human Design tek başlarına çok başarılı tahminler çıkarabilirler; ancak gerçek potansiyelleri, birlikte kullanıldıklarında ortaya çıkar. Bu iki yaklaşım bir araya geldiğinde, bireyin kişisel koduna—içsel yapısına, tekrar eden örüntülerine ve ilahi zamanlamasına—bütünsel bir bakış sunar. Maneviyatla pratiği birleştirerek, toplumsal şartlanmalardan değil, öz farkındalıktan beslenen karar algımıza rehberlik ederler.">Astrology and Human Design are powerful on their own, but their true potential lies in integration. When used together, they offer a full-spectrum view of your personal code—your wiring, your patterns, your divine timing. Together, they bridge the spiritual and the practical, guiding you to make decisions rooted in self-awareness rather than social programming.</p>
+        <p class="translatable" data-lang-en="In sessions with Tülin, clients often experience emotional release, confirmation of inner truths, and a renewed sense of direction. These aren’t just theoretical tools—they’re deeply embodied frameworks for living. Every chart is a mirror. Every reading, a map back to your center." 
+        data-lang-tr="Tülin ile yapılan seanslarda danışanlar sıklıkla duygusal bir arınma, içsel gerçeklerin teyidi ve yeniden yön bulma hissi yaşarlar. Bu analizler yalnızca teorik bilgiler değildir; yaşamla iç içe geçmiş, derinlemesine deneyimlenen kılavuzlardır. Her doğum haritası bir aynadır. Her yorum ise, sizi merkezinize götüren bir haritadır.">In sessions with Tulin, clients often experience emotional release, confirmation of inner truths, and a renewed sense of direction. These aren’t just theoretical tools—they’re deeply embodied frameworks for living. Every chart is a mirror. Every reading, a map back to your center.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Tülin Düzgezen. All rights reserved.
+  </footer>
+</body>
+</html>

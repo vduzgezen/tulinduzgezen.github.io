@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Tulin Duzgezen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f6f3;
+      --text: #2e3c2d;
+      --accent: #748c74;
+      --soft-accent: #dde3dd;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--soft-accent);
+      padding: 20px 40px;
+    }
+    header img {
+      height: 60px;
+    }
+    nav a {
+      color: var(--text);
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: var(--accent);
+    }
+    .language-switch select {
+        font-size: 1em;
+        padding: 6px 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .language-switch label {
+        font-size: 1em;
+    }
+    .container {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .profile-section {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+    .profile-section img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .profile-section .intro {
+      flex: 1;
+    }
+    .split-section {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 60px;
+      gap: 40px;
+    }
+    .split-section img {
+      flex: 1;
+      max-width: 500px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    .split-section .text {
+      flex: 1;
+      min-width: 300px;
+    }
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    p {
+      margin-bottom: 20px;
+    }
+    footer {
+      background-color: var(--soft-accent);
+      padding: 20px;
+      text-align: center;
+      color: #3f4f3f;
+      font-size: 0.9em;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-in-out;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Scroll animation
+      const reveals = document.querySelectorAll(".reveal");
+      function revealOnScroll() {
+        const windowHeight = window.innerHeight;
+        reveals.forEach(el => {
+          const top = el.getBoundingClientRect().top;
+          if (top < windowHeight - 100) {
+            el.classList.add("active");
+          }
+        });
+      }
+      window.addEventListener("scroll", revealOnScroll);
+      revealOnScroll();
+
+      // Language switcher
+      const langToggle = document.getElementById('language-toggle');
+      const translatables = document.querySelectorAll('.translatable');
+
+      const savedLang = localStorage.getItem('lang') || 'en';
+      langToggle.value = savedLang;
+      updateLanguage(savedLang);
+
+      langToggle.addEventListener('change', () => {
+        const selectedLang = langToggle.value;
+        localStorage.setItem('lang', selectedLang);
+        updateLanguage(selectedLang);
+      });
+
+      function updateLanguage(lang) {
+        translatables.forEach(el => {
+          const newText = el.getAttribute(`data-lang-${lang}`);
+          if (newText) el.textContent = newText;
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <img src="images/logo.png" alt="Tulin Duzgezen Logo">
+    <nav>
+        <a href="index.html" class="translatable" data-lang-en="Home" data-lang-tr="Ana Sayfa">Home</a>
+        <a href="about.html" class="translatable" data-lang-en="About" data-lang-tr="Hakkında">About</a>
+        <a href="services.html" class="translatable" data-lang-en="Services" data-lang-tr="Danışmanlık Paketleri">Services</a>
+        <a href="contact.html" class="translatable" data-lang-en="Contact" data-lang-tr="İletişim">Contact</a>
+    </nav>
+    <div class="language-switch">
+      <label for="language-toggle">🌐</label>
+      <select id="language-toggle">
+        <option value="en">English</option>
+        <option value="tr">Türkçe</option>
+      </select>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="profile-section reveal">
+      <img src="images/profile.jpeg" alt="Tulin Duzgezen Portrait">
+      <div class="intro">
+        <h1 class="translatable" data-lang-en="Meet Tülin Düzgezen" data-lang-tr="Tülin Düzgezen ile Tanışın">Meet Tülin Düzgezen</h1>
+        <p class="translatable" data-lang-en="I was born in 1974 in Istanbul. My family has roots in Thessaloniki, which gifted me a strong cultural bond and a deep sense of heritage. After completing my studies in business, I pursued an internship in import-export at Berkeley and worked in the field for a year. But when my children were born, I stepped back from the business world to prioritize my family. Four years ago, I began my journey into astrology—driven by a desire to explore deeper meaning in life and to understand myself and others more profoundly." 
+        data-lang-tr="1974 yılında İstanbul'da doğdum. Ailemin Selanik kökenli olması bana kültürel bir zenginlik ve güçlü bir sentez kazandırdı. Eğitim hayatımı işletme alanında tamamladıktan sonra, Berkeley’de ihracat ve ithalat üzerine staj yaptım ve bir yıl bu sektörde çalıştım. Ancak çocuklarım dünyaya geldikten sonra iş hayatımı bir kenara bırakarak önceliğimi aileme verdim.">I was born in 1974 in Istanbul. My family has roots in Thessaloniki, which gifted me a strong cultural bond and a deep sense of heritage. After completing my studies in business, I pursued an internship in import-export at Berkeley and worked in the field for a year. But when my children were born, I stepped back from the business world to prioritize my family. Four years ago, I began my journey into astrology—driven by a desire to explore deeper meaning in life and to understand myself and others more profoundly.</p>
+      </div>
+    </div>
+
+    <div class="split-section reveal">
+      <div class="text">
+        <h2 class="translatable" data-lang-en="My Journey Through the Stars" data-lang-tr="Yıldızlarla Olan Yolculuğum">My Journey Through the Stars</h2>
+        <p class="translatable" data-lang-en="As I immersed myself in birth charts and planetary movements, I found astrology to be a powerful tool not just for personal insight but also for supporting others. The ability to read cosmic patterns gave me new clarity, not only about myself but also about the dynamics shaping human experience. I began seeing astrology as a timeless language of energy—one that speaks in vibration, rhythm, and potential." 
+        data-lang-tr="2019 yılında astrolojiyle ilgilenmeye başladım. Bu yolculuğa başlama sebebim, hayatın daha büyük anlamlarını keşfetme arzusuydu. İnsan ilişkilerini ve kendimi daha derinlemesine anlayabilmek için gökyüzünün rehberliğini araştırmaya başladım. Doğum haritaları ve gezegen konumları üzerinden insanların karakterlerini ve yaşam döngülerini incelemek, bana hem kişisel gelişimimde yol gösterdi hem de çevremdekilere destek olma fırsatı sundu. Astroloji, içsel bir keşif alanı sunarken aynı zamanda çevremdeki dünyayı daha iyi anlamama da yardımcı oldu.
+        
+        'Gökyüzünü izleyen, yolunu kaybetmez.' Astrolojiyle olan bağım tam olarak bunu hissettiriyor—kendimi ve hayatı daha iyi anlamak için gökyüzüne bakıyorum.">As I immersed myself in birth charts and planetary movements, I found astrology to be a powerful tool not just for personal insight but also for supporting others. The ability to read cosmic patterns gave me new clarity, not only about myself but also about the dynamics shaping human experience. I began seeing astrology as a timeless language of energy—one that speaks in vibration, rhythm, and potential.</p>
+        <p class="translatable" data-lang-en="Astrology, for me, is not about certainty. It's about awareness. It's about recognizing the energetic tides in your life and learning how to ride them with trust rather than fear. This journey helped me reconnect to my sense of purpose, and I now offer this clarity to others seeking guidance." 
+        data-lang-tr="Benim için astroloji kesinlik değil, farkındalıktır. Hayatınızdaki enerjik dalgaları tanımak ve onlara korkuyla değil, güvenle eşlik etmeyi öğrenmektir. Bu yolculuk, kendi yaşam amacımla yeniden bağ kurmamı sağladı ve şimdi ise bu netliği rehberlik arayan başkalarına sunuyorum.">Astrology, for me, is not about certainty. It's about awareness. It's about recognizing the energetic tides in your life and learning how to ride them with trust rather than fear. This journey helped me reconnect to my sense of purpose, and I now offer this clarity to others seeking guidance.</p>
+      </div>
+      <img src="images/patterns.jpeg" alt="Decorative Pattern">
+    </div>
+
+    <div class="split-section reveal">
+      <img src="images/whitepatterns.jpeg" alt="Decorative Pattern">
+      <div class="text">
+        <h2 class="translatable" data-lang-en="A Mission Rooted in Compassion" data-lang-tr="Anlayışa Dayalı Bir Amaç">A Mission Rooted in Compassion</h2>
+        <p class="translatable" 
+        data-lang-en="Astrology and Human Design are more than systems—they are mirrors. Through Uranian Astrology, I help people uncover hidden influences and energetic timings that illuminate their challenges and potential. Using Human Design, I guide individuals to understand their energy blueprint and decision-making strategies." 
+        data-lang-tr="Astroloji ve Human Design yalnızca birer sistem değil, aynı zamanda aynalardır. Uranyen Astroloji aracılığıyla insanların zorluklarını ve potansiyellerini aydınlatan gizli etkileri ve enerjik zamanlamaları ortaya çıkarmalarına yardımcı oluyorum. Human Design ile bireylerin enerjik yapılarını ve karar alma stratejilerini anlamaları için rehberlik ediyorum.">
+        Astrology and Human Design are more than systems—they are mirrors. Through Uranian Astrology, I help people uncover hidden influences and energetic timings that illuminate their challenges and potential. Using Human Design, I guide individuals to understand their energy blueprint and decision-making strategies.
+        </p>
+
+        <p class="translatable" 
+        data-lang-en="My sessions support clients in discovering their life rhythm, navigating transitions, and embracing their authentic nature. Whether you're facing uncertainty, seeking direction, or just curious about who you are—this work offers a chance to see your life through a cosmic lens and act with more peace and purpose." 
+        data-lang-tr="Seanslarım, danışanların kendi yaşam ritimlerini keşfetmelerine, geçiş süreçlerini sağlıklı şekilde yönetmelerine ve özgün benliklerini kucaklamalarına destek olur. Belirsizlik yaşıyor, yön arıyor ya da sadece kim olduğunuzu merak ediyor olabilirsiniz—bu çalışma, hayatınıza kozmik bir bakışla yaklaşmanızı ve daha huzurlu bir amaçla hareket etmenizi sağlar.">
+        My sessions support clients in discovering their life rhythm, navigating transitions, and embracing their authentic nature. Whether you're facing uncertainty, seeking direction, or just curious about who you are—this work offers a chance to see your life through a cosmic lens and act with more peace and purpose.
+        </p>
+
+        <p class="translatable" 
+        data-lang-en="I believe everyone holds the key to their own transformation. My role is to reflect that truth back to you through the stars." 
+        data-lang-tr="Herkesin, kendi dönüşümünün anahtarını taşıdığına inanıyorum. Benim görevim ise bu gerçeği yıldızlar aracılığıyla size yeniden hatırlatmaktır.">
+        I believe everyone holds the key to their own transformation. My role is to reflect that truth back to you through the stars.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Tülin Düzgezen. All rights reserved.
+  </footer>
+</body>
+</html>

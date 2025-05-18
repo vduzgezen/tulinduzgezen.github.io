@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Consulting Options | Tulin Duzgezen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f6f3;
+      --text: #2e3c2d;
+      --accent: #748c74;
+      --soft-accent: #dde3dd;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--soft-accent);
+      padding: 20px 40px;
+    }
+
+    footer {
+      background-color: var(--soft-accent);
+      padding: 20px;
+      text-align: center;
+      color: #3f4f3f;
+      font-size: 0.9em;
+    }
+
+    header img {
+      height: 60px;
+    }
+
+    nav a {
+      color: var(--text);
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .language-switch select {
+        font-size: 1em;
+        padding: 6px 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .language-switch label {
+        font-size: 1em;
+    }
+
+    .container {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .section {
+      margin-bottom: 60px;
+    }
+
+    .info-block {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .info-block img {
+      max-width: 500px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .text {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-in-out;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #3f4f3f;
+    }
+
+    @media (max-width: 768px) {
+      .info-block {
+        flex-direction: column;
+      }
+    }
+
+    .package-row {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: space-between;
+     gap: 40px;
+     margin-top: 40px;
+     align-items: flex-start;
+    }
+
+    .package-block {
+     flex: 1 1 48%;
+     background-color: rgba(255, 255, 255, 0.7);
+     border-radius: 12px;
+     padding: 20px;
+     text-align: center;
+     cursor: pointer;
+     transition: all 0.4s ease;
+     position: relative;
+     overflow: hidden;
+     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .package-block:hover {
+     transform: translateY(-5px);
+     background-color: rgba(255, 255, 255, 0.9);
+     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .package-block img {
+     max-height: 200px;
+     width: auto;
+     border-radius: 8px;
+     object-fit: cover;
+     margin-bottom: 15px;
+    }
+
+    .package-block h2 {
+     margin-bottom: 10px;
+     font-size: 1.4em;
+     position: relative;
+    }
+
+    .package-block h2::after {
+     content: '▼';
+     font-size: 0.8em;
+     margin-left: 10px;
+     color: var(--accent);
+     transition: transform 0.3s ease;
+    }
+
+    .package-block.open h2::after {
+     transform: rotate(180deg);
+    }
+
+    .package-content {
+     display: none;
+     margin-top: 20px;
+     text-align: left;
+     animation: fadeInUp 0.5s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+     from { opacity: 0; transform: translateY(20px); }
+     to { opacity: 1; transform: translateY(0); }
+    }
+
+  </style>
+  <script>
+
+    function togglePackage(id, block) {
+        const el = document.getElementById(id);
+        const isOpen = el.style.display === "block";
+    
+        // Close all open blocks
+        document.querySelectorAll('.package-content').forEach(p => p.style.display = 'none');
+        document.querySelectorAll('.package-block').forEach(b => b.classList.remove('open'));
+
+        if (!isOpen) {
+            el.style.display = "block";
+            block.classList.add('open');
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const reveals = document.querySelectorAll(".reveal");
+      function revealOnScroll() {
+        const windowHeight = window.innerHeight;
+        reveals.forEach(el => {
+          const top = el.getBoundingClientRect().top;
+          if (top < windowHeight - 100) {
+            el.classList.add("active");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", revealOnScroll);
+      revealOnScroll();
+
+      // Language switch
+      const langToggle = document.getElementById('language-toggle');
+      const translatables = document.querySelectorAll('.translatable');
+
+      const savedLang = localStorage.getItem('lang') || 'en';
+      langToggle.value = savedLang;
+      updateLanguage(savedLang);
+
+      langToggle.addEventListener('change', () => {
+        const selectedLang = langToggle.value;
+        localStorage.setItem('lang', selectedLang);
+        updateLanguage(selectedLang);
+      });
+
+      function updateLanguage(lang) {
+        translatables.forEach(el => {
+          const newText = el.getAttribute(`data-lang-${lang}`);
+          if (newText) el.textContent = newText;
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+    <header>
+      <img src="images/logo.png" alt="Tulin Duzgezen Logo">
+      <nav>
+        <a href="index.html" class="translatable" data-lang-en="Home" data-lang-tr="Ana Sayfa">Home</a>
+        <a href="about.html" class="translatable" data-lang-en="About" data-lang-tr="Hakkında">About</a>
+        <a href="services.html" class="translatable" data-lang-en="Services" data-lang-tr="Danışmanlık Paketleri">Services</a>
+        <a href="contact.html" class="translatable" data-lang-en="Contact" data-lang-tr="İletişim">Contact</a>
+      </nav>
+      <div class="language-switch">
+        <label for="language-toggle">🌐</label>
+        <select id="language-toggle">
+          <option value="en">English</option>
+          <option value="tr">Türkçe</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="container">
+        <div class="container">
+        <h1 class="reveal translatable" data-lang-en="Consulting Options" data-lang-tr="Danışmanlık Seçenekleri">Consulting Options</h1>
+        <p class="reveal translatable"
+            data-lang-en="All sessions are 1 hour long. Options marked with 📝 are available as a written report for $75."
+            data-lang-tr="Tüm seanslar 1 saat sürmektedir. Yanında 📝 simgesi olan seçenekler yazılı rapor olarak $75 karşılığında sunulabilir.">
+            All sessions are 1 hour long. Options marked with 📝 are available as a written report for $75.
+        </p>
+
+        <div class="package-row">
+
+            <!-- Human Design -->
+            <div class="package-block" onclick="togglePackage('hd-packages', this)">
+                <img src="images/waterfall.jpeg" alt="Human Design Visual">
+                <h2 class="translatable" data-lang-en="Human Design" data-lang-tr="Human Design">Human Design</h2>
+                <div id="hd-packages" class="package-content">
+      
+                <!-- Package 1 -->
+                <h3 class="translatable" data-lang-en="1-Basic Channels & Gates Reading ($150)" data-lang-tr="1-Temel Kanal ve Kapı Danışmanlığı ($150)">1-Basic Channels & Gates Reading ($150)</h3>
+                <p class="translatable" data-lang-en="This reading explores the foundations of your energetic blueprint by analyzing the defined channels and gates in your BodyGraph. Based on your birth data, we examine the flow between your centers and highlight the traits and talents emerging from your active gates. Each gate reflects a core theme, such as creativity or intuition, based on the I Ching. You'll leave with practical strategies for interpreting and applying these energies in everyday life." 
+                    data-lang-tr="Bu danışmanlık, doğum verilerinizle oluşturulan BodyGraph'inizde tanımlı olan kanallar ve kapılar üzerinden enerji haritanızın temel yapılarını incelemeye odaklanır. Merkezler arasındaki akışlar, yaşamda hangi yeteneklerin öne çıktığı ve hangi kapıların hangi nitelikleri temsil ettiği (yaratıcılık, sezgi vb.) detaylandırılır. Seans sonunda, bu enerjilerin günlük yaşamda nasıl uygulanacağına dair öneriler sunulur.">
+                </p>
+            
+                <!-- Package 2 -->
+                <h3 class="translatable" data-lang-en="2-Advanced Channels & Gates Session (2 sessions - $300)" data-lang-tr="2-Derinlemesine Kanal ve Kapı Danışmanlığı (2 seans - $300)">2-Advanced Channels & Gates Session (2 sessions - $300)</h3>
+                <p class="translatable" data-lang-en="This in-depth session analyzes all activated channels and gates in your chart. We explore the conscious and unconscious layers of each channel, along with tone, color, and energetic nuance. The focus is on how your inner dynamics influence decision-making, life themes, and personal growth. You'll receive examples, practical strategies, and personalized insights for navigating relationships and transitions more effectively. Includes a post-session PDF with full analysis." 
+                    data-lang-tr="Bu derinlemesine analizde BodyGraph'inizde tanımlı olan tüm kanal ve kapılar incelenir. Her bir kanal, bilinçli ve bilinçsiz yönleri, tonu ve rengiyle birlikte analiz edilir. Bu yapılar, karar alma süreçlerinize, içsel gelişiminize ve ilişki dinamiklerinize nasıl etki ediyor sorusuna yanıt aranır. Seans boyunca kişiye özel örnekler ve stratejiler sunulur. Seans sonrasında detaylı analiz raporu ve yaşam stratejileri içeren PDF dosyası paylaşılır.">
+                </p>
+      
+            </div>
+            </div>
+  
+        
+      
+            <!-- Uranian Astrology -->
+            <div class="package-block" onclick="togglePackage('ua-packages', this)">
+                <img src="images/peace.jpeg" alt="Uranian Astrology Visual">
+                <h2 class="translatable" data-lang-en="Uranian Astrology" data-lang-tr="Uranyen Astroloji">Uranian Astrology</h2>
+                <div id="ua-packages" class="package-content">
+        
+                <h3 class="translatable" data-lang-en="1-Birth Time Rectification ($150)" data-lang-tr="1-Doğum Tarihi Rektifikasyonu ($150)">1-Birth Time Rectification ($150)</h3>
+                <p class="translatable" data-lang-en="Accurate astrological insights begin with precise data. Birth Time Rectification is the process of pinpointing your exact birth time by aligning significant life events with planetary indicators. Without a verified birth time, chart interpretations may miss key psychological or karmic patterns. • Analysis of major life milestones to identify the most probable time of birth • Application of advanced astrological techniques to ensure precision • Enables more accurate forecasting and meaningful guidance."
+                data-lang-tr="Doğru astrolojik içgörüler, kesin verilerle başlar. Doğum Tarihi Rektifikasyonu, kişinin doğum saatini yaşamındaki önemli olaylarla hizalayarak netleştiren profesyonel bir tekniktir. Doğum saati doğrulanmadığında, harita yorumları psikolojik veya karmik örüntüleri gözden kaçırabilir. • Hayatınızda yaşanan dönüm noktalarının analiz edilmesiyle olası doğum saatinin bulunması • Gelişmiş astrolojik tekniklerle hassasiyetin sağlanması • Daha isabetli öngörüler ve anlamlı danışmanlıklar için doğru zemin sağlar.">
+                </p>
+        
+                <h3 class="translatable" data-lang-en="2-Natal Chart Analysis ($150) 📝" data-lang-tr="2-Doğum Haritası Analizi ($150) 📝">2-Natal Chart Analysis ($150) 📝</h3>
+                <p class="translatable" data-lang-en="Your natal chart is your soul's fingerprint. This reading uses your birth date, time, and location to generate a map of planetary positions at the moment of your first breath. It explores Sun, Moon, and Ascendant signs; planetary placements in houses; and aspects between them — all revealing your emotional nature, psychological patterns, and potential across life areas like career and relationships."
+                data-lang-tr="Doğum haritanız, ruhunuzun parmak izidir. Bu analiz, doğum tarihiniz, saatiniz ve yerinize dayanarak gezegenlerin ilk nefes anınızdaki konumlarını ortaya koyar. Güneş, Ay ve Yükselen burçlar; gezegenlerin ev yerleşimleri; ve aralarındaki açılar analiz edilerek duygusal yapınız, psikolojik eğilimleriniz ve kariyer ile ilişkiler gibi alanlardaki potansiyelleriniz yorumlanır.">
+                </p>
+        
+                <h3 class="translatable" data-lang-en="3-Relationship Compatibility (Synastry) ($150) 📝" data-lang-tr="3-İlişki Uyumluluğu Analizi (Sinastri) ($150) 📝">3-Relationship Compatibility (Synastry) ($150) 📝</h3>
+                <p class="translatable" data-lang-en="This consultation compares two natal charts (often partners) to evaluate energetic dynamics, compatibility, and relationship potential. We look at harmony, communication styles, and areas of tension. In some cases, a composite chart is also created to represent the couple’s joint relationship energy."
+                data-lang-tr="Bu danışmanlık, iki kişinin (genellikle romantik partnerler) doğum haritalarını karşılaştırarak enerjik uyum, iletişim tarzları ve ilişkideki potansiyel zorlukları inceler. Uyumlu noktalar, çatışma alanları ve birlikte yaşam dinamikleri analiz edilir. Gerekli durumlarda çiftin ortak enerjisini temsil eden kompozit harita da kullanılır.">
+                </p>
+        
+                <h3 class="translatable" data-lang-en="4-Solar and Lunar Return Forecasting ($150) 📝" data-lang-tr="4-Güneş ve Ay Dönüşü Öngörü Danışmanlığı ($150) 📝">4-Solar and Lunar Return Forecasting ($150) 📝</h3>
+                <p class="translatable" data-lang-en="Each year and month brings a new energetic theme. Solar Return charts (yearly) and Lunar Return charts (every 28 days) reflect your personal energetic climate for decision-making, emotional growth, or transition. This session examines transits, eclipses, and retrogrades, helping you time important decisions and maximize opportunities."
+                data-lang-tr="Her yıl ve ay, yeni bir enerjik tema getirir. Güneş Dönüşü (yıllık) ve Ay Dönüşü (her 28 günde bir) haritaları, karar alma süreçleriniz, duygusal büyümeniz ve yaşam geçişleriniz için enerjik iklimi yansıtır. Bu seans; transitler, tutulmalar ve geri hareketleri analiz ederek önemli kararlar için uygun zamanları belirlemenize yardımcı olur.">
+                </p>
+        
+                <h3 class="translatable" data-lang-en="5-Career and Financial Astrology ($150) 📝" data-lang-tr="5-Kariyer ve Finansal Astroloji Danışmanlığı ($150) 📝">5-Career and Financial Astrology ($150) 📝</h3>
+                <p class="translatable" data-lang-en="We analyze professional inclinations, leadership strengths, timing windows, and investment tendencies. Planetary transits are matched with your career cycles to identify opportunity or risk phases. You receive personalized insight to act strategically — whether changing jobs, negotiating, or launching a project."
+                data-lang-tr="Mesleki eğilimler, liderlik yetenekleri, zamanlama fırsatları ve yatırım tercihleri astrolojik olarak değerlendirilir. Gezegen geçişleriyle kariyer döngüleriniz eşleştirilerek fırsat ve risk dönemleri belirlenir. İş değişikliği, müzakere süreçleri veya yeni girişimlerde stratejik hareket edebilmeniz için kişiselleştirilmiş öneriler sunulur.">
+                </p>
+        
+                <h3 class="translatable" data-lang-en="6-Horary Astrology ($150) 📝" data-lang-tr="6-Soru Astrolojisi (Horary) ($150) 📝">6-Horary Astrology ($150) 📝</h3>
+                <p class="translatable" data-lang-en="Sometimes a single question needs an urgent answer. Horary Astrology creates a chart based on the exact time and location a question is asked. This chart is interpreted to find quick, accurate insight into a specific issue — such as a job offer, relationship outcome, or financial decision."
+                data-lang-tr="Bazen tek bir soru, hızlı ve net bir cevaba ihtiyaç duyar. Horary Astroloji, sorunun sorulduğu an ve konuma göre bir harita oluşturur. Bu harita; iş başvurusu, ilişki sonucu ya da maddi kararlar gibi spesifik konularda hızlı ve isabetli yanıtlar sunmak üzere yorumlanır.">
+                </p>
+          </div>
+        </div>
+        </div>
+      
+        </div>
+      
+      <!-- INTRO -->
+      <div class="section info-block reveal">
+        <div class="text">
+          <h2 class="translatable" data-lang-en="Why Seek Cosmic Consulting?" data-lang-tr="Neden Kozmik Danışmanlık?">Why Seek Cosmic Consulting?</h2>
+          <p class="translatable" data-lang-en="A consultation is not a forecast — it’s a conversation. It opens a space to observe your life from a different altitude. In today’s world, decisions are often made through noise, pressure, or inherited expectations. Yet each person has a natural timing, rhythm, and signature. The consulting process helps you uncover that rhythm — not by solving your problems, but by showing you the map you’ve always carried." 
+             data-lang-tr="Danışmanlık bir kehanet değil, bir sohbet alanıdır. Hayatınıza farklı bir yükseklikten bakmanızı sağlar. Günümüzde kararlar çoğu zaman baskı, gürültü ya da kalıplaşmış beklentilerle verilir. Oysa her insanın doğal bir ritmi ve özgün bir imzası vardır. Danışmanlık süreci, bu ritmi keşfetmenize yardımcı olur—sorunlarınızı çözmek yerine zaten yanınızda taşıdığınız haritayı göstererek."></p>
+          <p class="translatable" data-lang-en="Through reflective dialogue, symbolic interpretation, and energetic awareness, clients gain tools to navigate transitions, understand recurring emotional themes, and re-enter life from a place of balance. Whether you’re facing a relationship shift, a career decision, or a desire for deeper purpose — cosmic consulting helps you realign." 
+             data-lang-tr="Sembolik yorum, yansıtıcı diyalog ve enerjik farkındalıkla danışan, geçiş dönemlerini yönetmek, tekrar eden duygusal temaları anlamak ve yaşamına yeniden dengeyle katılmak için güçlü araçlar edinir. İlişki değişimleri, kariyer kararları ya da daha derin bir anlam arayışı fark etmeksizin—kozmik danışmanlık yeniden hizalanmanızı sağlar."></p>
+        </div>
+        <img src="images/dune.jpeg" alt="Consulting visual">
+      </div>
+  
+      <!-- ASTROLOGY -->
+      <div class="section info-block reveal">
+        <img src="images/art.jpeg" alt="Astrology energy">
+        <div class="text">
+          <h2 class="translatable" data-lang-en="Astrology: Decoding Cycles and Meaning" data-lang-tr="Astroloji: Döngüleri ve Anlamı Çözümlemek">Astrology: Decoding Cycles and Meaning</h2>
+          <p class="translatable" data-lang-en="Astrology reveals the tides — not the destination. It maps your energetic weather, highlighting where resistance may appear and where growth awaits. With each birth chart, I see a layered code: emotional currents, relational patterns, karmic themes, and aligned timing. These aren’t static traits, but invitations." 
+             data-lang-tr="Astroloji size nereye gideceğinizi değil, hangi denizlerde yol alacağınızı gösterir. Enerjisel hava durumunu haritalar; dirençlerin ve büyümenin nerelerde ortaya çıkacağını vurgular. Her doğum haritasında duygusal akıntılar, ilişkisel örüntüler, karmik temalar ve zamanlama kodları iç içe geçmiştir. Bunlar sabit tanımlar değil, yaşamın size sunduğu davetlerdir."></p>
+          <p class="translatable" data-lang-en="Using Uranian Astrology, we dive deeper. Tools like the 90° dial and midpoint analysis allow us to detect subtle influences and psychological triggers. For example, during a Saturn transit, we might uncover themes of responsibility, delayed reward, or maturity. This level of detail supports practical clarity — especially during career transitions, life restructuring, or major decision-making windows." 
+             data-lang-tr="Uranyen Astroloji ile birlikte bu haritaya daha da derinlemesine gireriz. 90° kadran ve midpoint analizleri gibi teknikler, bilinçaltı etkileri ve psikolojik tetikleyicileri açığa çıkarır. Örneğin, bir Satürn transiti sırasında sorumluluk alma, geciken ödüller veya olgunluk temaları ortaya çıkabilir. Bu detaylı analizler özellikle kariyer değişimi, yaşam yapılanmaları ve önemli karar anlarında netlik kazandırır."></p>
+        </div>
+      </div>
+  
+      <!-- HUMAN DESIGN & DUAL SYSTEM -->
+      <div class="section info-block reveal">
+        <div class="text">
+          <h2 class="translatable" data-lang-en="Two Systems, One Purpose" data-lang-tr="İki Sistem, Tek Amaç">Two Systems, One Purpose</h2>
+          <p class="translatable" data-lang-en="Uranian Astrology and Human Design serve a shared purpose: awareness and transformation. But they approach it from different doorways. Uranian Astrology is external, technical, timing-based. It asks: 'What kind of cycles am I in?' and helps you prepare. Human Design is internal, intuitive, and energetically grounded. It asks: 'Who am I, and how do I move through the world in alignment with my nature?'" 
+             data-lang-tr="Uranyen Astroloji ve Human Design aynı amaca hizmet eder: farkındalık ve dönüşüm. Ancak bu iki sistem farklı kapılardan geçerek ilerler. Uranyen Astroloji dışa dönüktür, tekniktir, zamanlamaya odaklanır. 'Hangi döngülerdeyim?' sorusunu sorar ve sizi hazırlar. Human Design ise içe dönüktür, sezgiseldir ve enerjik temellidir. 'Ben kimim ve doğamla uyum içinde nasıl yaşarım?' sorusunun cevabını arar."></p>
+          <p class="translatable" data-lang-en="Together, they offer a full picture. Let’s say you’re facing a career turning point. Uranian Astrology might reveal a challenging Saturn period — a call to restructure and commit. Meanwhile, Human Design may tell us you are a Generator type — someone who shouldn’t chase, but respond to what life offers. Combining both, you see not only the 'when' but the 'how.'" 
+             data-lang-tr="Bu iki sistemi birlikte kullandığımızda bütünsel bir tablo ortaya çıkar. Diyelim ki kariyerinizde bir dönüm noktasındasınız. Uranyen Astroloji, haritanızda zorlayıcı bir Satürn dönemi olduğunu gösterebilir—bu, yapılandırma ve sorumluluk çağrısıdır. Human Design ise sizin bir Jeneratör tipi olduğunuzu söyleyebilir—bu da fırsatları zorlamak yerine onlara yanıt vermeniz gerektiğini gösterir. Böylece sadece 'ne zaman' değil, 'nasıl' sorusuna da yanıt alırsınız."></p>
+          <p class="translatable" data-lang-en="In my work, I use these tools not as solutions, but as mirrors. They don’t tell you what to do. They remind you of who you are when no one’s watching." 
+             data-lang-tr="Ben bu iki sistemi bir çözüm aracı olarak değil, birer ayna olarak kullanıyorum. Size detaylıca ne yapmanız gerektiğini söylemezler, asıl kimse bakmıyorken kim olduğunuzu hatırlatırlar."></p>
+        </div>
+        <img src="images/meditation.jpeg" alt="Balance and insight">
+      </div>
+    </div>
+  
+    <footer>
+     &copy; 2025 Tulin Duzgezen. All rights reserved.
+    </footer>
+</body>  
+</html>
