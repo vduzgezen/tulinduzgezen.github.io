@@ -43,14 +43,30 @@
     }
 
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       background-color: var(--soft-accent);
       padding: 20px 40px;
     }
+
+    .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .right-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .menu-toggle {
+        display: none;
+        font-size: 26px;
+        cursor: pointer;
+    }
+
     header img {
-      height: 60px;
+      height: 40px;
     }
     footer {
       background-color: var(--soft-accent);
@@ -58,6 +74,12 @@
       text-align: center;
       color: #3f4f3f;
       font-size: 0.9em;
+    }
+    nav {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 10px;
     }
     nav a {
       color: var(--text);
@@ -131,8 +153,55 @@
     * {
         box-sizing: border-box;
     }
+
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: block;
+        }
+
+        nav {
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 10px;
+            padding-left: 40px;
+        }
+
+        nav.active {
+            display: flex;
+        }
+
+        header {
+            padding: 20px;
+        }
+
+        .header-top {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .right-controls {
+            flex-shrink: 0;
+        }
+
+        .language-switch select {
+            font-size: 14px;
+            padding: 4px 6px;
+        }
+    }
+    
   </style>
   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuToggle = document.getElementById("menu-toggle");
+        const nav = document.querySelector("nav");
+
+        menuToggle.addEventListener("click", () => {
+            nav.classList.toggle("active");
+        });
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
       // Scroll animation
       const reveals = document.querySelectorAll(".reveal");
@@ -173,28 +242,33 @@
 </head>
 <body>
     <header>
-        <img src="images/logo.png" alt="Tulin Duzgezen Logo">
+        <div class="header-top">
+          <img src="images/logo.png" alt="Tulin Duzgezen Logo">
+          <div class="right-controls">
+            <span id="menu-toggle" class="menu-toggle">☰</span>
+            <div class="language-switch">
+              <label for="language-toggle">🌐</label>
+              <select id="language-toggle">
+                <option value="en">English</option>
+                <option value="tr">Türkçe</option>
+              </select>
+            </div>
+          </div>
+        </div>
         <nav>
           <a href="index.html" class="translatable" data-lang-en="Home" data-lang-tr="Ana Sayfa">Home</a>
           <a href="about.html" class="translatable" data-lang-en="About" data-lang-tr="Hakkında">About</a>
           <a href="services.html" class="translatable" data-lang-en="Services" data-lang-tr="Danışmanlık Paketleri">Services</a>
           <a href="contact.html" class="translatable" data-lang-en="Contact" data-lang-tr="İletişim">Contact</a>
         </nav>
-        <div class="language-switch">
-          <label for="language-toggle">🌐</label>
-          <select id="language-toggle">
-            <option value="en">English</option>
-            <option value="tr">Türkçe</option>
-          </select>
-        </div>
-      </header>
+    </header>
       
 
   <div class="container">
     <h1 class="translatable" data-lang-en="Contact" data-lang-tr="İletişim">Contact</h1>
-    <p class="note translatable" data-lang-en="All sessions are 1 hour long. Packages marked with 📝 can also be delivered as a report instead of a meeting for $75 upon request." 
-       data-lang-tr="Tüm seanslar 1 saat sürmektedir. 📝 ile işaretli paketler, arzu edildiği takdirde, görüşme yerine $75 karşılığında yazılı rapor olarak sunulabilir.">
-      All sessions are 1 hour long. Packages marked with 📝 can also be delivered as a report instead of a meeting for $75 upon request.
+    <p class="note translatable" data-lang-en="All sessions are 1 hour long. Packages marked with 📝 can also be delivered as a report instead of a meeting upon request." 
+       data-lang-tr="Tüm seanslar 1 saat sürmektedir. 📝 ile işaretli paketler, arzu edildiği takdirde, görüşme yerine yazılı rapor olarak sunulabilir.">
+      All sessions are 1 hour long. Packages marked with 📝 can also be delivered as a report instead of a meeting upon request.
     </p>
 
     <form action="https://formsubmit.co/tduzgezen@gmail.com" method="POST">
@@ -213,8 +287,8 @@
       <label class="translatable" data-lang-en="Birth Hour (as in the timezone of the birthplace)" data-lang-tr="Doğum Saati (doğum yerinizin zaman diliminde)">Birth Hour (as in the timezone of the birthplace)</label>
       <input type="text" name="Birth Hour">
 
-      <label class="translatable" data-lang-en="Sex" data-lang-tr="Cinsiyet">Sex</label>
-      <input type="text" name="Sex">
+      <label class="translatable" data-lang-en="Gender" data-lang-tr="Cinsiyet">Gender</label>
+      <input type="text" name="Gender">
 
       <label class="translatable" data-lang-en="Phone Number (incl. area code if WhatsApp preferred)" 
              data-lang-tr="Telefon Numarası (Whatsapp için alan kodu ile birlikte)">Phone Number (incl. area code if WhatsApp preferred)</label>

@@ -27,11 +27,20 @@
     }
 
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       background-color: var(--soft-accent);
       padding: 20px 40px;
+    }
+
+    .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .right-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
 
     footer {
@@ -43,7 +52,7 @@
     }
 
     header img {
-      height: 60px;
+      height: 40px;
     }
 
     nav a {
@@ -55,6 +64,19 @@
 
     nav a:hover {
       color: var(--accent);
+    }
+
+    nav {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 10px;
+    }
+
+    .menu-toggle {
+        display: none;
+        font-size: 26px;
+        cursor: pointer;
     }
 
     .language-switch select {
@@ -125,9 +147,59 @@
     }
 
     @media (max-width: 768px) {
-      .info-block {
-        flex-direction: column;
-      }
+        .menu-toggle {
+            display: block;
+        }
+
+        nav {
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 10px;
+            padding-left: 40px;
+        }
+
+        nav.active {
+            display: flex;
+        }
+
+        header {
+            padding: 20px;
+        }
+
+        .header-top {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .right-controls {
+            flex-shrink: 0;
+        }
+
+        .language-switch select {
+            font-size: 14px;
+            padding: 4px 6px;
+        }
+    }
+    @media (max-width: 768px) {
+        .info-block.reverse {
+            flex-direction: column-reverse;
+        }
+
+        .info-block:not(.reverse) {
+            flex-direction: column;
+        }
+
+        .info-block img {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .info-block .text {
+            width: 100%;
+        }
     }
 
     .package-row {
@@ -214,6 +286,15 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
+        const menuToggle = document.getElementById("menu-toggle");
+        const nav = document.querySelector("nav");
+
+        menuToggle.addEventListener("click", () => {
+            nav.classList.toggle("active");
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
       const reveals = document.querySelectorAll(".reveal");
       function revealOnScroll() {
         const windowHeight = window.innerHeight;
@@ -253,29 +334,34 @@
 </head>
 <body>
     <header>
-      <img src="images/logo.png" alt="Tulin Duzgezen Logo">
-      <nav>
-        <a href="index.html" class="translatable" data-lang-en="Home" data-lang-tr="Ana Sayfa">Home</a>
-        <a href="about.html" class="translatable" data-lang-en="About" data-lang-tr="Hakkında">About</a>
-        <a href="services.html" class="translatable" data-lang-en="Services" data-lang-tr="Danışmanlık Paketleri">Services</a>
-        <a href="contact.html" class="translatable" data-lang-en="Contact" data-lang-tr="İletişim">Contact</a>
-      </nav>
-      <div class="language-switch">
-        <label for="language-toggle">🌐</label>
-        <select id="language-toggle">
-          <option value="en">English</option>
-          <option value="tr">Türkçe</option>
-        </select>
-      </div>
+        <div class="header-top">
+          <img src="images/logo.png" alt="Tulin Duzgezen Logo">
+          <div class="right-controls">
+            <span id="menu-toggle" class="menu-toggle">☰</span>
+            <div class="language-switch">
+              <label for="language-toggle">🌐</label>
+              <select id="language-toggle">
+                <option value="en">English</option>
+                <option value="tr">Türkçe</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <nav>
+          <a href="index.html" class="translatable" data-lang-en="Home" data-lang-tr="Ana Sayfa">Home</a>
+          <a href="about.html" class="translatable" data-lang-en="About" data-lang-tr="Hakkında">About</a>
+          <a href="services.html" class="translatable" data-lang-en="Services" data-lang-tr="Danışmanlık Paketleri">Services</a>
+          <a href="contact.html" class="translatable" data-lang-en="Contact" data-lang-tr="İletişim">Contact</a>
+        </nav>
     </header>
 
     <div class="container">
         <div class="container">
-        <h1 class="reveal translatable" data-lang-en="Consulting Options" data-lang-tr="Danışmanlık Seçenekleri">Consulting Options</h1>
+        <h1 class="reveal translatable" data-lang-en="E-Consulting Options" data-lang-tr="E-Danışmanlık Seçenekleri">E-Consulting Options</h1>
         <p class="reveal translatable"
-            data-lang-en="All sessions are 1 hour long. Options marked with 📝 are available as a written report for $75."
-            data-lang-tr="Tüm seanslar 1 saat sürmektedir. Yanında 📝 simgesi olan seçenekler yazılı rapor olarak $75 karşılığında sunulabilir.">
-            All sessions are 1 hour long. Options marked with 📝 are available as a written report for $75.
+            data-lang-en="All sessions are 1 hour long. Options marked with 📝 are available as a written report upon request."
+            data-lang-tr="Tüm seanslar 1 saat sürmektedir. Yanında 📝 simgesi olan seçenekler istek üzerine yazılı rapor olarak sunulabilir.">
+            All sessions are 1 hour long. Options marked with 📝 are available as a written report upon request.
         </p>
 
         <div class="package-row">
@@ -287,13 +373,13 @@
                 <div id="hd-packages" class="package-content">
       
                 <!-- Package 1 -->
-                <h3 class="translatable" data-lang-en="1-Basic Channels & Gates Reading ($150)" data-lang-tr="1-Temel Kanal ve Kapı Danışmanlığı ($150)">1-Basic Channels & Gates Reading ($150)</h3>
+                <h3 class="translatable" data-lang-en="1-Basic Channels & Gates Reading" data-lang-tr="1-Temel Kanal ve Kapı Danışmanlığı">1-Basic Channels & Gates Reading</h3>
                 <p class="translatable" data-lang-en="This reading explores the foundations of your energetic blueprint by analyzing the defined channels and gates in your BodyGraph. Based on your birth data, we examine the flow between your centers and highlight the traits and talents emerging from your active gates. Each gate reflects a core theme, such as creativity or intuition, based on the I Ching. You'll leave with practical strategies for interpreting and applying these energies in everyday life." 
                     data-lang-tr="Bu danışmanlık, doğum verilerinizle oluşturulan BodyGraph'inizde tanımlı olan kanallar ve kapılar üzerinden enerji haritanızın temel yapılarını incelemeye odaklanır. Merkezler arasındaki akışlar, yaşamda hangi yeteneklerin öne çıktığı ve hangi kapıların hangi nitelikleri temsil ettiği (yaratıcılık, sezgi vb.) detaylandırılır. Seans sonunda, bu enerjilerin günlük yaşamda nasıl uygulanacağına dair öneriler sunulur.">
                 </p>
             
                 <!-- Package 2 -->
-                <h3 class="translatable" data-lang-en="2-Advanced Channels & Gates Session (2 sessions - $300)" data-lang-tr="2-Derinlemesine Kanal ve Kapı Danışmanlığı (2 seans - $300)">2-Advanced Channels & Gates Session (2 sessions - $300)</h3>
+                <h3 class="translatable" data-lang-en="2-Advanced Channels & Gates Session (2 sessions)" data-lang-tr="2-Derinlemesine Kanal ve Kapı Danışmanlığı (2 seans)">2-Advanced Channels & Gates Session (2 sessions)</h3>
                 <p class="translatable" data-lang-en="This in-depth session analyzes all activated channels and gates in your chart. We explore the conscious and unconscious layers of each channel, along with tone, color, and energetic nuance. The focus is on how your inner dynamics influence decision-making, life themes, and personal growth. You'll receive examples, practical strategies, and personalized insights for navigating relationships and transitions more effectively. Includes a post-session PDF with full analysis." 
                     data-lang-tr="Bu derinlemesine analizde BodyGraph'inizde tanımlı olan tüm kanal ve kapılar incelenir. Her bir kanal, bilinçli ve bilinçsiz yönleri, tonu ve rengiyle birlikte analiz edilir. Bu yapılar, karar alma süreçlerinize, içsel gelişiminize ve ilişki dinamiklerinize nasıl etki ediyor sorusuna yanıt aranır. Seans boyunca kişiye özel örnekler ve stratejiler sunulur. Seans sonrasında detaylı analiz raporu ve yaşam stratejileri içeren PDF dosyası paylaşılır.">
                 </p>
@@ -309,32 +395,32 @@
                 <h2 class="translatable" data-lang-en="Uranian Astrology" data-lang-tr="Uranyen Astroloji">Uranian Astrology</h2>
                 <div id="ua-packages" class="package-content">
         
-                <h3 class="translatable" data-lang-en="1-Birth Time Rectification ($150)" data-lang-tr="1-Doğum Tarihi Rektifikasyonu ($150)">1-Birth Time Rectification ($150)</h3>
+                <h3 class="translatable" data-lang-en="1-Birth Time Rectification" data-lang-tr="1-Doğum Tarihi Rektifikasyonu">1-Birth Time Rectification</h3>
                 <p class="translatable" data-lang-en="Accurate astrological insights begin with precise data. Birth Time Rectification is the process of pinpointing your exact birth time by aligning significant life events with planetary indicators. Without a verified birth time, chart interpretations may miss key psychological or karmic patterns. • Analysis of major life milestones to identify the most probable time of birth • Application of advanced astrological techniques to ensure precision • Enables more accurate forecasting and meaningful guidance."
                 data-lang-tr="Doğru astrolojik içgörüler, kesin verilerle başlar. Doğum Tarihi Rektifikasyonu, kişinin doğum saatini yaşamındaki önemli olaylarla hizalayarak netleştiren profesyonel bir tekniktir. Doğum saati doğrulanmadığında, harita yorumları psikolojik veya karmik örüntüleri gözden kaçırabilir. • Hayatınızda yaşanan dönüm noktalarının analiz edilmesiyle olası doğum saatinin bulunması • Gelişmiş astrolojik tekniklerle hassasiyetin sağlanması • Daha isabetli öngörüler ve anlamlı danışmanlıklar için doğru zemin sağlar.">
                 </p>
         
-                <h3 class="translatable" data-lang-en="2-Natal Chart Analysis ($150) 📝" data-lang-tr="2-Doğum Haritası Analizi ($150) 📝">2-Natal Chart Analysis ($150) 📝</h3>
+                <h3 class="translatable" data-lang-en="2-Natal Chart Analysis 📝" data-lang-tr="2-Doğum Haritası Analizi 📝">2-Natal Chart Analysis 📝</h3>
                 <p class="translatable" data-lang-en="Your natal chart is your soul's fingerprint. This reading uses your birth date, time, and location to generate a map of planetary positions at the moment of your first breath. It explores Sun, Moon, and Ascendant signs; planetary placements in houses; and aspects between them — all revealing your emotional nature, psychological patterns, and potential across life areas like career and relationships."
                 data-lang-tr="Doğum haritanız, ruhunuzun parmak izidir. Bu analiz, doğum tarihiniz, saatiniz ve yerinize dayanarak gezegenlerin ilk nefes anınızdaki konumlarını ortaya koyar. Güneş, Ay ve Yükselen burçlar; gezegenlerin ev yerleşimleri; ve aralarındaki açılar analiz edilerek duygusal yapınız, psikolojik eğilimleriniz ve kariyer ile ilişkiler gibi alanlardaki potansiyelleriniz yorumlanır.">
                 </p>
         
-                <h3 class="translatable" data-lang-en="3-Relationship Compatibility (Synastry) ($150) 📝" data-lang-tr="3-İlişki Uyumluluğu Analizi (Sinastri) ($150) 📝">3-Relationship Compatibility (Synastry) ($150) 📝</h3>
+                <h3 class="translatable" data-lang-en="3-Relationship Compatibility (Synastry) 📝" data-lang-tr="3-İlişki Uyumluluğu Analizi (Sinastri) 📝">3-Relationship Compatibility (Synastry) 📝</h3>
                 <p class="translatable" data-lang-en="This consultation compares two natal charts (often partners) to evaluate energetic dynamics, compatibility, and relationship potential. We look at harmony, communication styles, and areas of tension. In some cases, a composite chart is also created to represent the couple’s joint relationship energy."
                 data-lang-tr="Bu danışmanlık, iki kişinin (genellikle romantik partnerler) doğum haritalarını karşılaştırarak enerjik uyum, iletişim tarzları ve ilişkideki potansiyel zorlukları inceler. Uyumlu noktalar, çatışma alanları ve birlikte yaşam dinamikleri analiz edilir. Gerekli durumlarda çiftin ortak enerjisini temsil eden kompozit harita da kullanılır.">
                 </p>
         
-                <h3 class="translatable" data-lang-en="4-Solar and Lunar Return Forecasting ($150) 📝" data-lang-tr="4-Güneş ve Ay Dönüşü Öngörü Danışmanlığı ($150) 📝">4-Solar and Lunar Return Forecasting ($150) 📝</h3>
+                <h3 class="translatable" data-lang-en="4-Solar and Lunar Return Forecasting 📝" data-lang-tr="4-Güneş ve Ay Dönüşü Öngörü Danışmanlığı 📝">4-Solar and Lunar Return Forecasting 📝</h3>
                 <p class="translatable" data-lang-en="Each year and month brings a new energetic theme. Solar Return charts (yearly) and Lunar Return charts (every 28 days) reflect your personal energetic climate for decision-making, emotional growth, or transition. This session examines transits, eclipses, and retrogrades, helping you time important decisions and maximize opportunities."
                 data-lang-tr="Her yıl ve ay, yeni bir enerjik tema getirir. Güneş Dönüşü (yıllık) ve Ay Dönüşü (her 28 günde bir) haritaları, karar alma süreçleriniz, duygusal büyümeniz ve yaşam geçişleriniz için enerjik iklimi yansıtır. Bu seans; transitler, tutulmalar ve geri hareketleri analiz ederek önemli kararlar için uygun zamanları belirlemenize yardımcı olur.">
                 </p>
         
-                <h3 class="translatable" data-lang-en="5-Career and Financial Astrology ($150) 📝" data-lang-tr="5-Kariyer ve Finansal Astroloji Danışmanlığı ($150) 📝">5-Career and Financial Astrology ($150) 📝</h3>
+                <h3 class="translatable" data-lang-en="5-Career and Financial Astrology 📝" data-lang-tr="5-Kariyer ve Finansal Astroloji Danışmanlığı 📝">5-Career and Financial Astrology 📝</h3>
                 <p class="translatable" data-lang-en="We analyze professional inclinations, leadership strengths, timing windows, and investment tendencies. Planetary transits are matched with your career cycles to identify opportunity or risk phases. You receive personalized insight to act strategically — whether changing jobs, negotiating, or launching a project."
                 data-lang-tr="Mesleki eğilimler, liderlik yetenekleri, zamanlama fırsatları ve yatırım tercihleri astrolojik olarak değerlendirilir. Gezegen geçişleriyle kariyer döngüleriniz eşleştirilerek fırsat ve risk dönemleri belirlenir. İş değişikliği, müzakere süreçleri veya yeni girişimlerde stratejik hareket edebilmeniz için kişiselleştirilmiş öneriler sunulur.">
                 </p>
         
-                <h3 class="translatable" data-lang-en="6-Horary Astrology ($150) 📝" data-lang-tr="6-Soru Astrolojisi (Horary) ($150) 📝">6-Horary Astrology ($150) 📝</h3>
+                <h3 class="translatable" data-lang-en="6-Horary Astrology 📝" data-lang-tr="6-Soru Astrolojisi (Horary) 📝">6-Horary Astrology 📝</h3>
                 <p class="translatable" data-lang-en="Sometimes a single question needs an urgent answer. Horary Astrology creates a chart based on the exact time and location a question is asked. This chart is interpreted to find quick, accurate insight into a specific issue — such as a job offer, relationship outcome, or financial decision."
                 data-lang-tr="Bazen tek bir soru, hızlı ve net bir cevaba ihtiyaç duyar. Horary Astroloji, sorunun sorulduğu an ve konuma göre bir harita oluşturur. Bu harita; iş başvurusu, ilişki sonucu ya da maddi kararlar gibi spesifik konularda hızlı ve isabetli yanıtlar sunmak üzere yorumlanır.">
                 </p>
@@ -357,7 +443,7 @@
       </div>
   
       <!-- ASTROLOGY -->
-      <div class="section info-block reveal">
+      <div class="section info-block reveal reverse">
         <img src="images/art.jpeg" alt="Astrology energy">
         <div class="text">
           <h2 class="translatable" data-lang-en="Astrology: Decoding Cycles and Meaning" data-lang-tr="Astroloji: Döngüleri ve Anlamı Çözümlemek">Astrology: Decoding Cycles and Meaning</h2>
