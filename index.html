@@ -163,6 +163,31 @@
     }
 
     @media (max-width: 768px) {
+        /* Ensure reverse stacking for deep-dive */
+        .deep-dive.reverse {
+            flex-direction: column-reverse;
+        }
+
+        .deep-dive.reverse .text-col {
+            order: 2;
+        }
+
+        .deep-dive.reverse .image-col {
+            order: 1;
+        }
+
+        /* Make image more responsive */
+        .deep-dive.reverse .image-col img {
+            max-width: 80%;
+            margin: 0 auto;
+            display: block;
+        }
+    }
+
+
+
+
+    @media (max-width: 768px) {
         .menu-toggle {
             display: block;
         }
@@ -299,22 +324,25 @@
       </div>
     </div>
 
-    <div class="deep-dive reveal" style="margin-top: 60px;">
-      <div class="column">
-        <h2 class="translatable" data-lang-en="Uranian Astrology" data-lang-tr="Uranyen Astroloji">Uranian Astrology</h2>
-        <p class="translatable" data-lang-en="Uranian Astrology is a modern, precise approach to understanding time, energy, and psychological influence. It uses tools like the 90° dial, midpoints, and Transneptunian objects to explore hidden layers in the birth chart. This method excels in identifying inner tensions, karmic lessons, and timing patterns." 
-        data-lang-tr="Uranyen Astroloji, zaman, enerji ve psikolojik etkileri anlamaya yönelik modern ve son derece hassas bir yaklaşımdır. Doğum haritasındaki gizli katmanları keşfetmek için 90° kadran, orta noktalar ve Transneptünyen gezegenler gibi özel teknikler kullanır. Bu yöntem; içsel gerilimleri, karmik dersleri ve zamanlama kalıplarını belirlemede oldukça etkilidir.">Uranian Astrology is a modern, precise approach to understanding time, energy, and psychological influence. It uses tools like the 90° dial, midpoints, and Transneptunian objects to explore hidden layers in the birth chart. This method excels in identifying inner tensions, karmic lessons, and timing patterns.</p>
-        <p class="translatable" data-lang-en="Unlike traditional astrology, Uranian Astrology allows for pinpoint accuracy in revealing subconscious programming, blocked potentials, and moments of opportunity. It is particularly useful in moments of transition—when clarity, guidance, and cosmic alignment are most needed." 
-        data-lang-tr="Klasik astrolojiden farklı olarak, Uranyen Astroloji; bilinçaltı kodlamaları, ulaşılamamış potansiyelleri ve fırsat anlarını yüksek hassasiyetle ortaya çıkarır. Özellikle geçiş dönemlerinde, netliğe, rehberliğe ve kozmik hizalanmaya en çok ihtiyaç duyulan zamanlarda son derece işlevseldir.">Unlike traditional astrology, Uranian Astrology allows for pinpoint accuracy in revealing subconscious programming, blocked potentials, and moments of opportunity. It is particularly useful in moments of transition—when clarity, guidance, and cosmic alignment are most needed.</p>
-        <p class="translatable" data-lang-en="It is a practical and deeply psychological method that resonates with those seeking not just prediction, but perspective." 
-        data-lang-tr="Bu yaklaşım, yalnızca kehanet değil; bakış açısı arayanlar için hem pratik hem de derin psikolojik bir açıklamadır.">It is a practical and deeply psychological method that resonates with those seeking not just prediction, but perspective.</p>
-      </div>
-      <div class="column">
-        <img src="images/garden.jpeg" alt="Zen Garden">
-      </div>
+    <div class="deep-dive reveal reverse">
+        
+        <div class="column text-col">
+          <h2 class="translatable" data-lang-en="Uranian Astrology" data-lang-tr="Uranyen Astroloji">Uranian Astrology</h2>
+          <p class="translatable" data-lang-en="Uranian Astrology is a modern, precise approach to understanding time, energy, and psychological influence. It uses tools like the 90° dial, midpoints, and Transneptunian objects to explore hidden layers in the birth chart. This method excels in identifying inner tensions, karmic lessons, and timing patterns." 
+          data-lang-tr="Uranyen Astroloji, zaman, enerji ve psikolojik etkileri anlamaya yönelik modern ve son derece hassas bir yaklaşımdır. Doğum haritasındaki gizli katmanları keşfetmek için 90° kadran, orta noktalar ve Transneptünyen gezegenler gibi özel teknikler kullanır. Bu yöntem; içsel gerilimleri, karmik dersleri ve zamanlama kalıplarını belirlemede oldukça etkilidir.">Uranian Astrology is a modern, precise approach to understanding time, energy, and psychological influence.</p>
+          <p class="translatable" data-lang-en="Unlike traditional astrology, Uranian Astrology allows for pinpoint accuracy in revealing subconscious programming, blocked potentials, and moments of opportunity. It is particularly useful in moments of transition—when clarity, guidance, and cosmic alignment are most needed." 
+          data-lang-tr="Klasik astrolojiden farklı olarak, Uranyen Astroloji; bilinçaltı kodlamaları, ulaşılamamış potansiyelleri ve fırsat anlarını yüksek hassasiyetle ortaya çıkarır. Özellikle geçiş dönemlerinde, netliğe, rehberliğe ve kozmik hizalanmaya en çok ihtiyaç duyulan zamanlarda son derece işlevseldir.">Unlike traditional astrology, Uranian Astrology allows for pinpoint accuracy in revealing subconscious programming, blocked potentials, and moments of opportunity.</p>
+          <p class="translatable" data-lang-en="It is a practical and deeply psychological method that resonates with those seeking not just prediction, but perspective." 
+          data-lang-tr="Bu yaklaşım, yalnızca kehanet değil; bakış açısı arayanlar için hem pratik hem de derin psikolojik bir açıklamadır.">It is a practical and deeply psychological method that resonates with those seeking not just prediction, but perspective.</p>
+        </div>
+        <div class="column image-col">
+            <img src="images/garden.jpeg" alt="Zen Garden" style="max-width: 500px; margin: 0 auto; display: block;" />
+        </div>
     </div>
+      
+      
 
-    <div class="deep-dive reveal">
+    <div class="deep-dive reveal reverse">
       <div class="column">
         <img src="images/rocks.jpeg" alt="Balancing Stones">
       </div>
